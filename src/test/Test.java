@@ -14,27 +14,37 @@ public class Test {
 
 
 	    public static void main(String[] args) {
-	        Scanner scanner = new Scanner(System.in);
-	        int T = scanner.nextInt();
-
-	        for (int t = 1; t <= T; t++) {
-	            int n = scanner.nextInt();
-	            int cnt = 0, sum = 0;
-
-	            for (int i = 1; i <= n; i++) {
-	                sum += i;
-	                int n1 = n - sum;
-	                if (n1 < 0) {
-	                    break;
-	                }
-	                if (n1 % i == 0) {
-	                    cnt++;
-	                }
-	            }
-	            System.out.println("#" + t + " " + cnt);
-	        }
-
-	        scanner.close();
+			int[] a=new int[] {2,5,3,7,9,13,1,4,8,10};
+			int [] c=new int[a.length];
+			int[] d=Arrays.copyOf(a, a.length);
+			System.arraycopy(a, 0, c, 0, a.length);
+			int[] e=a.clone(); 
+			// 계산후 옛날것과 비교
+			d[0]=-1;
+			System.out.println(Arrays.equals(a, d));
+			
+			// 얕은 복사
+			int [] b=a;
+			b[0]=-200;
+			System.out.println(Arrays.equals(a, b));
+			int[] f=new int[100];
+			Arrays.fill(f, -1);
+			System.out.println(Arrays.toString(f));
+			Arrays.sort(a);// ASC
+			
+			int[][] ee=new int[10][10];
+			for (int i = 0; i < 10; i++) {
+				Arrays.fill(ee[i], -5);
+			}
+			int[][] ef=new int[10][10];
+			for (int i = 0; i < 10; i++) {
+				System.arraycopy(ee[i], 0, ef[i], 0, 10);
+			}
+			System.out.println(Arrays.toString(a));
+			int index1=Arrays.binarySearch(a,  10);
+			int index2=Arrays.binarySearch(a,  11);
+			System.out.println(index1);
+			System.out.println(index2);  //-10 -index2-1 9
 	    }
 	
 
