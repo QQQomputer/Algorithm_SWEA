@@ -6,39 +6,45 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Q2001_파리퇴치 {
-
+	static int N,M,S,max;
+	static int [] board;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		int M = Integer.parseInt(st.nextToken());
-		int S = N-M+1;
-		int [] board = new int[S*S];
-		int [] arr = new int[N+M];
+		StringTokenizer st;
+		int T = Integer.parseInt(br.readLine());
 		
-		for (int i = 0; i < N; i++) {
+		for (int t = 1; t <= T; t++) {
 			st = new StringTokenizer(br.readLine());
-			for (int j = 0; j < S; j++) {
-				int idx = i*N+M;
-				arr[idx%N] = Integer.parseInt(st.nextToken());
-				if(i*N+j>=S) {
-					for (int k = M-1; k >= 0; k++) {
-						
-					}
-				}
-					
+			N = Integer.parseInt(st.nextToken());
+			M = Integer.parseInt(st.nextToken());
+			S = N-M+1;
+			max = 0;
+			board = new int[N*N];
+			
+			for (int i = 0; i < N; i++) {
+				st = new StringTokenizer(br.readLine());
+				for (int j = 0; j < N; j++)
+					board[i*N+j]=Integer.parseInt(st.nextToken());
 			}
 			
+			for (int r = 0; r < S; r++) {
+				for (int c = 0; c < S; c++) {
+					max = Math.max(max, kill(r,c));
+				}
+			}
 			
-//			arr[i%N]=
-//			if()
-//			
-//			int 
-			
+			System.out.println("#"+t+" "+max);
 		}
-		
 	}
 	
-	
+	static int kill(int r, int c) {
+		int sum = 0;
+		for (int dr = 0; dr < M; dr++) {
+			for (int dc = 0; dc < M; dc++) {
+				sum += board[(r+dr)*N+(c+dc)];
+			}
+		}
+		return sum;
+	}
 
 }
