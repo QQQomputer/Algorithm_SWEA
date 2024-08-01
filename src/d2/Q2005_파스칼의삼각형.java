@@ -34,6 +34,7 @@ public class Q2005_파스칼의삼각형 {
 			
 			for (int i = 0; i < N; i++) {
 				String str =Arrays.toString(board[i]).replace(",", "");
+				System.out.println(str.substring(1, str.length()-1));
 				sb.append(str.substring(1, str.length()-1)).append("\n");
 			}
 		}

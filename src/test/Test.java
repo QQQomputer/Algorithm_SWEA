@@ -1,96 +1,72 @@
 package test;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.Scanner;
+import java.util.StringTokenizer;
+
 public class Test {
-	
-	
+    
+    static int T = 0;
+    static int N = 100;
+    static int[][] arr;
+    static boolean[][] visited;
+    static int[] dr = {-1,0,0};
+    static int[] dc = {0,1,-1};
 
-
-	    public static void main(String[] args) {
-			int[] a=new int[] {2,5,3,7,9,13,1,4,8,10};
-			int [] c=new int[a.length];
-			int[] d=Arrays.copyOf(a, a.length);
-			System.arraycopy(a, 0, c, 0, a.length);
-			int[] e=a.clone(); 
-			// 계산후 옛날것과 비교
-			d[0]=-1;
-			System.out.println(Arrays.equals(a, d));
-			
-			// 얕은 복사
-			int [] b=a;
-			b[0]=-200;
-			System.out.println(Arrays.equals(a, b));
-			int[] f=new int[100];
-			Arrays.fill(f, -1);
-			System.out.println(Arrays.toString(f));
-			Arrays.sort(a);// ASC
-			
-			int[][] ee=new int[10][10];
-			for (int i = 0; i < 10; i++) {
-				Arrays.fill(ee[i], -5);
-			}
-			int[][] ef=new int[10][10];
-			for (int i = 0; i < 10; i++) {
-				System.arraycopy(ee[i], 0, ef[i], 0, 10);
-			}
-			System.out.println(Arrays.toString(a));
-			int index1=Arrays.binarySearch(a,  10);
-			int index2=Arrays.binarySearch(a,  11);
-			System.out.println(index1);
-			System.out.println(index2);  //-10 -index2-1 9
-	    }
-	
-
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-//	static int [] arr;
-//	public static void main(String[] args) throws Exception {
-//
-//        StringBuilder sb = new StringBuilder();
-//
-//        int [] a = new int[10];
-//        
-//        System.out.println(a[0]);
-//		
-//		
-//		bw.flush();
-//		bw.close();
-//		br.close();
-//
-//	}
-    public static int readInt() throws IOException {
-		int result = 0;
-        Boolean negative = false;
-        int read = br.read();
+    public static void main(String[] args) throws IOException {
+        //System.setIn(new FileInputStream("input.txt"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
         
-        while(read < '0' || read > '9'){
-        	if (read == '-')
-                negative = true;
+        for (int t=1;t <=1; t++){
+            T = Integer.parseInt(br.readLine());
             
-            read = br.read();
+            int end = 0;
+            arr = new int[N][N];
+            visited = new boolean[N][N];
+            
+            for(int i=0;i<N;i++) {
+                st =  new StringTokenizer(br.readLine());
+                for (int j=0;j<N;j++) {
+                    arr[i][j] = Integer.parseInt(st .nextToken());
+                    if (arr[99][j]==2) {
+                        end = j;
+                    }
+                }
+            }
+            
+            int row = 99;
+            int col = end;
+            
+            while(row > 0) {
+                for (int i=0;i<3; i++) {
+                    int r = dr[i] + row;
+                    int c = dc[i] + col;
+                    
+                       if (check(r,c) && visited[r][c] == false && arr[r][c] == 1 & i == 1) {
+                        col += 1;
+                        visited[r][c] = true;
+                    }else if (check(r,c) && visited[r][c] == false && arr[r][c] == 1 & i == 2) {
+                        col -= 1;
+                        visited[r][c] = true;
+                    }else if (check(r,c) && visited[r][c] == false && arr[r][c] == 1 & i == 0) {
+                        row -= 1;
+                        visited[r][c] = true;
+                    }                
+                }
+            }
+            System.out.printf("#%d %d",t,col);
         }
-        
-        result = read -'0';
-        
-//        while(read >= '0' && read <= '9'){
-//         	result = result * 10 + (read -'0');
-//            read = br.read();
-//        }
-        
-        return negative ? -result : result;
     }
     
-
-    static void swap(int a, int b){
-        int tmp=arr[b];
-        arr[b] = arr[a];
-        arr[a] = tmp;
+    public static boolean check(int r, int c) {
+        if(r >= 0 && r <= N-1 && c >= 0 && c <= N-1) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
-}
+}    
